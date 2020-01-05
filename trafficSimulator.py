@@ -151,7 +151,15 @@ class Car():
         if self.initcoordinate[0] < Centro[0] and self.initcoordinate[1] > Centro[1]:
             self.startpos = 'sinistra'
         self.checklane()
-
+    def rotatedx(self,angle):
+        self.image = pygame.transform.rotate(self.saved_image, self.angle)
+        self.rect = self.image.get_rect(center=self.rect.center)
+        self.angle -= angle
+    # sinistra
+    def rotatesx(self,angle):
+        self.image = pygame.transform.rotate(self.saved_image, self.angle)
+        self.rect = self.image.get_rect(center=self.rect.center)
+        self.angle += angle
     def move(self):
         self.pos = (self.x, self.y)
         self.percorsoArrivo()
@@ -159,7 +167,7 @@ class Car():
             if self.y < self.arrivoy:
                 self.y += self.speedy
             if self.y == self.arrivoy and self.angle != -95:
-                rotatedx(self, 5)
+                self.rotatedx(5)
             if self.angle == -95:
                 if self.x > self.arrivox:
                     self.x -= self.speedx
@@ -169,7 +177,7 @@ class Car():
             if self.y < self.arrivoy:
                 self.y += self.speedy
             if self.y == self.arrivoy and self.angle != 95:
-                rotatesx(self, 5)
+                self.rotatesx(5)
             if self.angle == 95:
                 if self.x < self.arrivox:
                     self.x += self.speedx
@@ -179,7 +187,7 @@ class Car():
             if self.y > self.arrivoy:
                 self.y -= self.speedy
             if self.y == self.arrivoy and self.angle != 95:
-                rotatesx(self, 5)
+                self.rotatesx(5)
             if self.angle == 95:
                 if self.x > self.arrivox:
                     self.x -= self.speedx
@@ -189,7 +197,7 @@ class Car():
             if self.y > self.arrivoy:
                 self.y -= self.speedy
             if self.y == self.arrivoy and self.angle != -95:
-                rotatedx(self, 5)
+                self.rotatedx(5)
             if self.angle == -95:
                 if self.x < self.arrivox:
                     self.x += self.speedx
@@ -200,7 +208,7 @@ class Car():
             if self.x < self.arrivox:
                 self.x += self.speedx
             if self.x == self.arrivox and self.angle != 95:
-                rotatesx(self, 5)
+                self.rotatesx(5)
             if self.angle == 95:
                 if self.y > self.arrivoy:
                     self.y -= self.speedy
@@ -210,7 +218,7 @@ class Car():
             if self.x < self.arrivox:
                 self.x += self.speedx
             if self.x == self.arrivox and self.angle != -95:
-                rotatedx(self, 5)
+                self.rotatedx(5)
             if self.angle == -95:
                 if self.y < self.arrivoy:
                     self.y += self.speedy
@@ -220,7 +228,7 @@ class Car():
             if self.x > self.arrivox:
                 self.x -= self.speedx
             if self.x == self.arrivox and self.angle != -95:
-                rotatedx(self, 5)
+                self.rotatedx(5)
             if self.angle == -95:
                 if self.y > self.arrivoy:
                     self.y -= self.speedy
@@ -230,7 +238,7 @@ class Car():
             if self.x > self.arrivox:
                 self.x -= self.speedx
             if self.x == self.arrivox and self.angle != 95:
-                rotatesx(self, 5)
+                self.rotatesx(5)
             if self.angle == 95:
                 if self.y < self.arrivoy:
                     self.y += self.speedy
@@ -238,17 +246,7 @@ class Car():
                 self.changelanerevers()
 
 
-def rotatedx(self, angle):
-    self.image = pygame.transform.rotate(self.saved_image, self.angle)
-    self.rect = self.image.get_rect(center=self.rect.center)
-    self.angle -= angle
-# sinistra
 
-
-def rotatesx(self, angle):
-    self.image = pygame.transform.rotate(self.saved_image, self.angle)
-    self.rect = self.image.get_rect(center=self.rect.center)
-    self.angle += angle
 
 
 def aggiorna():
