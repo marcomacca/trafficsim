@@ -1,13 +1,11 @@
 # Importo librerie
 import pygame
+from grafica import *
 import random
 
-# Init PyGame
-pygame.init()
+
 
 # Carico Immagini
-sfondo = pygame.image.load('imgGame\incrocio2png.png')
-sfondo2 = pygame.transform.scale(sfondo, (1024, 768))
 car1img = pygame.image.load('imgGame\\auto.png')
 car2img = pygame.image.load('imgGame\\auto2.png')
 auto1 = pygame.transform.scale(car1img, (93, 46))
@@ -15,9 +13,7 @@ auto2 = pygame.transform.scale(car2img, (93, 46))
 
 
 # Costanti Globale
-SCHERMO = pygame.display.set_mode((1024, 768))
-myfont = pygame.font.SysFont('Comic Sans MS', 30)
-FPS = 60
+
 Centro = (512, 384)
 listacar = list()
 LaneCoordinate = [[26, 500], [966, 220], [390, 16], [590, 730]]
@@ -39,7 +35,6 @@ class Car():
             self.image = pygame.transform.rotate(self.image, -90)
         if self.x == 590 or self.x == 526:
             self.image = pygame.transform.rotate(self.image, 90)
-        #self.image_orig = self.image
         self.rect = self.image.get_rect()
         self.angle = 0
         self.speedx = 2
@@ -51,8 +46,6 @@ class Car():
         self.arrivo = None
         self.ingombro = None
 
-    # def set_speed(self, x, y):
-    #     self.speed = x, y
 
     def randomCoordinateEND(self):
         a = [x for x in EndCoordinate if x[0] !=
@@ -155,7 +148,6 @@ class Car():
         self.image = pygame.transform.rotate(self.saved_image, self.angle)
         self.rect = self.image.get_rect(center=self.rect.center)
         self.angle -= angle
-    # sinistra
     def rotatesx(self,angle):
         self.image = pygame.transform.rotate(self.saved_image, self.angle)
         self.rect = self.image.get_rect(center=self.rect.center)
@@ -248,21 +240,6 @@ class Car():
 
 
 
-
-def aggiorna():
-    pygame.display.update()
-    pygame.time.Clock().tick(FPS)
-    SCHERMO.fill((0, 0, 0))
-
-
-def disegna_oggetti(cars):
-    SCHERMO.blit(sfondo2, (0, 0))
-    SCHERMO.blit(textsurface2, (10, 0))
-    SCHERMO.blit(textsurface, (10, 100))
-    for n in cars:
-        SCHERMO.blit(n.image, n.pos)
-
-
 def inizializza(Numerocars):
     global listacar
     for n in range(Numerocars):
@@ -273,9 +250,7 @@ def inizializza(Numerocars):
         a.randomCoordinateEND()
         listacar.append(a)
 
-
-textsurface = myfont.render('', False, (0, 0, 0))  # per cooordinate
-textsurface2 = myfont.render('', False, (0, 0, 0))  # per coordinate
+ 
 inizializza(1)
 # initcordinate solo per test
 x = 0
@@ -297,7 +272,7 @@ def checkCollision(T):
 
 while True:
      
-    disegna_oggetti(listacar)
+    disegna_oggetti(listacar,textsurface,textsurface2)
     for car in listacar:
         car.move()
         car.ingombro = pygame.Rect(car.x, car.y, car.rect[2], car.rect[3])
@@ -320,20 +295,3 @@ while True:
         if event.type == pygame.QUIT:  # gestisco la chiusura della finestra
             pygame.quit()
             SystemExit
-
-        # Per muovere con la tastiera un oggetto sullo schermo
-        #     if (event.type == pygame.KEYDOWN
-        #         and event.key == pygame.K_UP):
-        #         carspeed = 1
-        #     elif (event.type == pygame.KEYDOWN
-        #         and event.key == pygame.K_DOWN):
-        #         carspeed = -1
-        #     elif (event.type == pygame.KEYDOWN
-        #         and event.key == pygame.K_RIGHT):
-        #         destSin = + 1
-        #     elif (event.type == pygame.KEYDOWN
-        #         and event.key == pygame.K_LEFT):
-        #         destSin = - 1
-        #     else:
-        #         carspeed = 0
-        #         destSin = 0
