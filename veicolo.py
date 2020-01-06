@@ -37,6 +37,10 @@ class Car():
         self.lane = None
         self.arrivo = None
         self.ingombro = None
+        self.definestarpos()
+        self.checklane()
+        self.lane
+        self.randomCoordinateEND()
 
 
     def randomCoordinateEND(self):

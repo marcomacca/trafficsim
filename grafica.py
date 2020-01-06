@@ -11,7 +11,6 @@ FPS = 60
 textsurface = myfont.render('', False, (0, 0, 0))  # testo per coordinate
 textsurface2 = myfont.render('', False, (0, 0, 0))  # testo per coordinate
 
-
 def aggiorna():
     pygame.display.update()
     pygame.time.Clock().tick(FPS)
