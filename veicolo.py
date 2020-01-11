@@ -37,6 +37,8 @@ class Car():
         self.lane = None
         self.arrivo = None
         self.ingombro = None
+        self.visione = None
+        self.direzione = None
         self.definestarpos()
         self.checklane()
         self.lane
@@ -109,21 +111,26 @@ class Car():
             if self.startpos == 'basso':
                 self.y -= self.speedy
             self.arrivo = 'alto'
+            self.direzione = 'su'
         # destra
         if self.arrivox > Centro[0] and self.arrivoy > Centro[1]:
             if self.startpos == 'sinistra':
                 self.x += self.speedx
             self.arrivo = 'destra'
+            self.direzione = 'destra'
         # sinistra
         if self.arrivox < Centro[0] and self.arrivoy < Centro[1]:
             if self.startpos == 'destra':
                 self.x -= self.speedx
             self.arrivo = 'sinistra'
+            self.direzione = 'sinistra'
+
         # basso
         if self.arrivox < Centro[0] and self.arrivoy > Centro[1]:
             if self.startpos == 'alto':
                 self.y += self.speedy
             self.arrivo = 'basso'
+            self.direzione = 'giù'
 
     def definestarpos(self):
         # ritorna sia corsia centrale o esterna più quadrante
@@ -156,16 +163,19 @@ class Car():
         if self.startpos == 'alto' and self.arrivo == 'sinistra':
             if self.y < self.arrivoy:
                 self.y += self.speedy
+                self.direzione = 'giù'
             if self.y == self.arrivoy and self.angle != -95:
                 self.rotatedx(5)
             if self.angle == -95:
                 if self.x > self.arrivox:
                     self.x -= self.speedx
+                    self.direzione = 'sinistra'
             if self.lane == 'centro':
                 self.changelane()
         if self.startpos == 'alto' and self.arrivo == 'destra':
             if self.y < self.arrivoy:
                 self.y += self.speedy
+                self.direzione = 'giù'
             if self.y == self.arrivoy and self.angle != 95:
                 self.rotatesx(5)
             if self.angle == 95:
@@ -176,62 +186,74 @@ class Car():
         if self.startpos == 'basso' and self.arrivo == 'sinistra':
             if self.y > self.arrivoy:
                 self.y -= self.speedy
+                self.direzione = 'su'
             if self.y == self.arrivoy and self.angle != 95:
                 self.rotatesx(5)
             if self.angle == 95:
                 if self.x > self.arrivox:
                     self.x -= self.speedx
+                    self.direzione = 'sinistra'
             if self.lane == 'esterna':
                 self.changelanerevers()
         if self.startpos == 'basso' and self.arrivo == 'destra':
             if self.y > self.arrivoy:
                 self.y -= self.speedy
+                self.direzione = 'su'
             if self.y == self.arrivoy and self.angle != -95:
                 self.rotatedx(5)
             if self.angle == -95:
                 if self.x < self.arrivox:
                     self.x += self.speedx
+                    self.direzione = 'destra'
             if self.lane == 'centro':
                 self.changelane()
 
         if self.startpos == 'sinistra' and self.arrivo == 'alto':
             if self.x < self.arrivox:
                 self.x += self.speedx
+                self.direzione = 'destra'
             if self.x == self.arrivox and self.angle != 95:
                 self.rotatesx(5)
             if self.angle == 95:
                 if self.y > self.arrivoy:
                     self.y -= self.speedy
+                    self.direzione = 'su'
             if self.lane == 'esterna':
                 self.changelanerevers()
         if self.startpos == 'sinistra' and self.arrivo == 'basso':
             if self.x < self.arrivox:
                 self.x += self.speedx
+                self.direzione = 'destra'
             if self.x == self.arrivox and self.angle != -95:
                 self.rotatedx(5)
             if self.angle == -95:
                 if self.y < self.arrivoy:
                     self.y += self.speedy
+                    self.direzione = 'giù'
             if self.lane == 'centro':
                 self.changelane()
         if self.startpos == 'destra' and self.arrivo == 'alto':
             if self.x > self.arrivox:
                 self.x -= self.speedx
+                self.direzione = 'sinistra'
             if self.x == self.arrivox and self.angle != -95:
                 self.rotatedx(5)
             if self.angle == -95:
                 if self.y > self.arrivoy:
                     self.y -= self.speedy
+                    self.direzione = 'su'
             if self.lane == 'centro':
                 self.changelane()
         if self.startpos == 'destra' and self.arrivo == 'basso':
             if self.x > self.arrivox:
                 self.x -= self.speedx
+                self.direzione = 'sinistra'
             if self.x == self.arrivox and self.angle != 95:
                 self.rotatesx(5)
             if self.angle == 95:
                 if self.y < self.arrivoy:
                     self.y += self.speedy
+                    self.direzione = 'giù'
             if self.lane == 'esterna':
                 self.changelanerevers()
 

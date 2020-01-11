@@ -23,3 +23,4 @@ def disegna_oggetti(cars, testo1, testo2):
     SCHERMO.blit(testo2, (10, 10))
     for n in cars:
         SCHERMO.blit(n.image, n.pos)
+       
