@@ -11,16 +11,17 @@ FPS = 60
 textsurface = myfont.render('', False, (0, 0, 0))  # testo per coordinate
 textsurface2 = myfont.render('', False, (0, 0, 0))  # testo per coordinate
 
+
 def aggiorna():
     pygame.display.update()
     pygame.time.Clock().tick(FPS)
     SCHERMO.fill((0, 0, 0))
 
 
-def disegna_oggetti(cars, testo1, testo2):
+def disegna_oggetti(cars, testo1, testo2, b):
     SCHERMO.blit(sfondo, (0, 0))
     SCHERMO.blit(testo1, (10, 100))
     SCHERMO.blit(testo2, (10, 10))
+    SCHERMO.blit(b.image, (10, 100))
     for n in cars:
         SCHERMO.blit(n.image, n.pos)
-       

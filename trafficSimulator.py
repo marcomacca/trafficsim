@@ -1,9 +1,10 @@
 # Importo librerie
-import pygame,random
+import pygame
+import random
 from grafica import *
 from collisioncontroller import *
 from veicolo import *
-
+from trafficlight import *
 
 
 # Costanti Globale
@@ -24,29 +25,34 @@ y = 0
 dsds = 0
 
 while True:
-
-    disegna_oggetti(listacar, textsurface, textsurface2)
+    b = Trafficlight()
+    disegna_oggetti(listacar, textsurface, textsurface2, b)
     for car in listacar:
         car.move()
-        car.ingombro = pygame.Rect(car.pos,car.image.get_size())
-        if car.direzione == 'destra':   
-            car.visione = pygame.Rect(car.ingombro.topright,car.image.get_size())
+        car.ingombro = pygame.Rect(car.pos, car.image.get_size())
+        if car.direzione == 'destra':
+            car.visione = pygame.Rect(
+                car.ingombro.topright, car.image.get_size())
         if car.direzione == 'sinistra':
-            car.visione = pygame.Rect((car.ingombro.topleft[0]-(car.image.get_size())[1]*2,car.ingombro.topleft[1]),car.image.get_size())
-        if car.direzione == 'su':       
-            car.visione = pygame.Rect((car.ingombro.topleft[0],car.ingombro.topleft[1]-(car.image.get_size())[0]*2),car.image.get_size())
+            car.visione = pygame.Rect((car.ingombro.topleft[0]-(car.image.get_size())[
+                                      1]*2, car.ingombro.topleft[1]), car.image.get_size())
+        if car.direzione == 'su':
+            car.visione = pygame.Rect((car.ingombro.topleft[0], car.ingombro.topleft[1]-(
+                car.image.get_size())[0]*2), car.image.get_size())
         if car.direzione == 'giù':
-            car.visione = pygame.Rect(car.ingombro.bottomleft,car.image.get_size())
-        BLUE=(0,0,255)
-        pygame.draw.rect(SCHERMO,BLUE,car.visione)    
-        #pygame.draw.rect(SCHERMO,BLUE,car.ingombro)    
+            car.visione = pygame.Rect(
+                car.ingombro.bottomleft, car.image.get_size())
+        BLUE = (0, 0, 255)
+        pygame.draw.rect(SCHERMO, BLUE, car.visione)
+        # pygame.draw.rect(SCHERMO,BLUE,car.ingombro)
 
-        
         # rimuovo le auto che sono arrivate a destinazione
         if car.arrived:
             listacar.remove(car)
-    textsurface2 = myfont.render('start'+str(listacar[0].ingombro), False, (0, 0, 0))
-    textsurface = myfont.render('collisioni'+str(listacar[0].direzione), False, (0, 0, 0))
+    textsurface2 = myfont.render(
+        'start'+str(listacar[0].ingombro), False, (0, 0, 0))
+    textsurface = myfont.render(
+        'collisioni'+str(listacar[0].direzione), False, (0, 0, 0))
     checkCollision(listacar)
     aggiorna()
     for event in pygame.event.get():
@@ -57,7 +63,7 @@ while True:
         if event.type == pygame.MOUSEBUTTONUP:
             inizializza(1)
             print("click")
-        # gestisco la chiusura della finestra    
-        if event.type == pygame.QUIT:  
+        # gestisco la chiusura della finestra
+        if event.type == pygame.QUIT:
             pygame.quit()
             SystemExit
