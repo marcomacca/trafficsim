@@ -28,8 +28,11 @@ dsds = 0
 while True:
     b = Trafficlight()
     disegna_oggetti(listacar, textsurface, textsurface2, b)
-    for car in listacar:
+    for i,car in enumerate(listacar):
         car.move()
+        xlist = listacar.copy()
+        xlist.remove(listacar[i])
+        car.provacollisione(xlist)
         BLUE = (0, 0, 255)
         #pygame.draw.rect(SCHERMO, BLUE, car.visione)
         # pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
@@ -42,7 +45,7 @@ while True:
         'start'+str(listacar[0].ingombro), False, (0, 0, 0))
     textsurface = myfont.render(
         'collisioni'+str(listacar[0].direzione), False, (0, 0, 0))
-    checkCollision(listacar)
+    #checkCollision(listacar)
     aggiorna()
     for event in pygame.event.get():
         # Per ricevere coordinate sulla poszione del mouse

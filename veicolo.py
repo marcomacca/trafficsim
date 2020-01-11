@@ -38,7 +38,7 @@ class Car():
         self.startpos = None
         self.lane = None
         self.arrivo = None
-        self.ingombro = None
+        self.ingombro = pygame.Rect(self.pos, self.image.get_size())
         self.visione = None
         self.direzione = None
         self.definestarpos()
@@ -104,6 +104,20 @@ class Car():
                 elif Centro[0] < self.initcoordinate[0]:  # basso
                     if abs(self.x - Centro[0]) > 12:
                         self.x -= self.speedx
+                        
+    def provacollisione(self, listacar):
+        collide = False
+        for n in listacar:
+            if self.visione.colliderect(n.ingombro):
+                self.speedy = 0 
+                self.speedx = 0
+                collide = True 
+            if not collide:              
+                self.speedy = 2
+                self.speedx = 2
+                collide = False   
+
+
 
     def percorsoArrivo(self):
 
