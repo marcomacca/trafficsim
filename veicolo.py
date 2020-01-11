@@ -1,6 +1,7 @@
-import random, pygame
+import random
+import pygame
 
-#Coordinate
+# Coordinate
 Centro = (512, 384)
 EndCoordinate = [[26, 220], [590, 16], [390, 730], [966, 500], [526, 16]]
 LaneCoordinate = [[26, 500], [966, 220], [390, 16], [590, 730]]
@@ -12,6 +13,7 @@ car1img = pygame.image.load('imgGame\\auto.png')
 car2img = pygame.image.load('imgGame\\auto2.png')
 auto1 = pygame.transform.scale(car1img, (93, 46))
 auto2 = pygame.transform.scale(car2img, (93, 46))
+
 
 class Car():
     def __init__(self):
@@ -43,7 +45,6 @@ class Car():
         self.checklane()
         self.lane
         self.randomCoordinateEND()
-
 
     def randomCoordinateEND(self):
         cordinate = [x for x in EndCoordinate if x[0] !=
@@ -147,16 +148,20 @@ class Car():
         if self.initcoordinate[0] < Centro[0] and self.initcoordinate[1] > Centro[1]:
             self.startpos = 'sinistra'
         self.checklane()
-    def rotatedx(self,angle):
+
+    def rotatedx(self, angle):
         self.image = pygame.transform.rotate(self.saved_image, self.angle)
         self.rect = self.image.get_rect(center=self.rect.center)
         self.angle -= angle
-    def rotatesx(self,angle):
+
+    def rotatesx(self, angle):
         self.image = pygame.transform.rotate(self.saved_image, self.angle)
         self.rect = self.image.get_rect(center=self.rect.center)
         self.angle += angle
+
     def move(self):
         self.pos = (self.x, self.y)
+        self.ingombro = pygame.Rect(self.pos, self.image.get_size())
         self.percorsoArrivo()
         if self.arrivox == self.x and self.arrivoy == self.y:
             self.arrived = True
@@ -256,4 +261,15 @@ class Car():
                     self.direzione = 'giù'
             if self.lane == 'esterna':
                 self.changelanerevers()
-
+        if self.direzione == 'destra':
+            self.visione = pygame.Rect(
+                self.ingombro.topright, self.image.get_size())
+        if self.direzione == 'sinistra':
+            self.visione = pygame.Rect((self.ingombro.topleft[0]-(self.image.get_size())[
+                                      1]*2, self.ingombro.topleft[1]), self.image.get_size())
+        if self.direzione == 'su':
+            self.visione = pygame.Rect((self.ingombro.topleft[0], self.ingombro.topleft[1]-(
+                self.image.get_size())[0]*2), self.image.get_size())
+        if self.direzione == 'giù':
+            self.visione = pygame.Rect(
+                self.ingombro.bottomleft, self.image.get_size())
