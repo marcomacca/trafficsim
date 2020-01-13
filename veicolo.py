@@ -105,7 +105,7 @@ class Car():
                     if abs(self.x - Centro[0]) > 26:
                         self.x -= self.speedx
 
-    def provacollisione(self, listacar):
+    def anticollisione(self, listacar):
         collide = False
         for n in listacar:
             if self.visione.colliderect(n.ingombro):
@@ -116,6 +116,26 @@ class Car():
                 self.speedy = 2
                 self.speedx = 2
                 collide = False
+    def controllosemaforo(self,listasemafori):
+        collide = False
+        for s in listasemafori:
+            if s.colore == 'red':
+                if self.ingombro.colliderect(s.rect):
+                    self.speedy = 0
+                    self.speedx = 0
+                    break 
+            elif s.colore == 'orange':
+                if self.visione.colliderect(s.rect):
+                    self.speedy = 1
+                    self.speedx = 1
+                    break
+            elif s.colore == 'green':  
+                if self.visione.colliderect(s.rect):
+                    self.speedy = 2
+                    self.speedx = 2
+                    break      
+
+
 
     def percorsoArrivo(self):
 

@@ -2,7 +2,6 @@
 import pygame
 import random
 from grafica import *
-
 from collisioncontroller import *
 from veicolo import *
 from trafficlight import *
@@ -17,15 +16,15 @@ def inizializza(Numerocars):
     for n in range(Numerocars):
         a = Car()
         listacar.append(a)
+
+
 def initSemafori():
     global listasemafori
-    n1 = Trafficlight(560,680)
-    n2 = Trafficlight(560,107)
-    n3 = Trafficlight(1100,107)
-    n4 = Trafficlight(1025,680)
-    listasemafori = [n1,n2,n3,n4]
-    
-
+    n1 = Trafficlight(560, 680)
+    n2 = Trafficlight(560, 107)
+    n3 = Trafficlight(1100, 107)
+    n4 = Trafficlight(1025, 680)
+    listasemafori = [n1, n2, n3, n4]
 
 
 inizializza(1)
@@ -34,23 +33,27 @@ initSemafori()
 x = 0
 y = 0
 dsds = 0
-#evento per chiamare inizializza ogni secondo
+# evento per chiamare inizializza ogni secondo
 TIMER1_EVENT = pygame.USEREVENT + 1
 pygame.time.set_timer(TIMER1_EVENT, 2000)
 
 signal_counter = 0
 while True:
-    
-    disegna_oggetti(listacar, textsurface, textsurface2,listasemafori)
-    for i,car in enumerate(listacar):
+
+    disegna_oggetti(listacar, textsurface, textsurface2, listasemafori)
+    for i, car in enumerate(listacar):
         car.move()
         xlist = listacar.copy()
         xlist.remove(listacar[i])
-        car.provacollisione(xlist)
+        car.anticollisione(xlist)
+        car.controllosemaforo(listasemafori)
         BLUE = (0, 0, 255)
-        #pygame.draw.rect(SCHERMO, BLUE, car.visione)
         # pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
-       
+        # pygame.draw.rect(SCHERMO, BLUE, car.visione)
+
+        # for n in listasemafori:
+        #     pygame.draw.rect(SCHERMO, BLUE, n.rect)
+        # pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
 
         # rimuovo le auto che sono arrivate a destinazione
         if car.arrived:
@@ -58,25 +61,25 @@ while True:
     time = pygame.time.get_ticks()/1000
     message = 'Time: ' + str(round(time))
 
-    textsurface = myfont.render(message, False, (0, 0, 0))       
+    textsurface = myfont.render(message, False, (0, 0, 0))
     textsurface2 = myfont.render(
         'start'+str(listacar[0].ingombro), False, (0, 0, 0))
     # textsurface = myfont.render(
     #     'collisioni'+str(listacar[0].direzione), False, (0, 0, 0))
-    
+
     aggiorna()
     for event in pygame.event.get():
         # Per ricevere coordinate sulla poszione del mouse
         x, y = pygame.mouse.get_pos()
         print("X : {} Y: {}".format(x, y))
-        #if event.type == TIMER1_EVENT:
-            #inizializza(1)
+        # if event.type == TIMER1_EVENT:
+        #     inizializza(1)
         # per inizializzare macchina con click
         if event.type == pygame.MOUSEBUTTONUP:
             inizializza(1)
-            signal_counter+=1
-            if signal_counter>2:
-                signal_counter=0 
+            signal_counter += 1
+            if signal_counter > 2:
+                signal_counter = 0
             for n in listasemafori:
                 n.change_sign(signal_counter)
 
