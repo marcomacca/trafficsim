@@ -195,13 +195,13 @@ class Car():
         self.pos = (self.x, self.y)
         self.ingombro = pygame.Rect(self.pos, self.image.get_size())
         self.percorsoArrivo()
-        if self.arrivox == self.x and self.arrivoy == self.y:
+        if self.arrivox in range(self.x-2,self.x+2) and self.arrivoy in range(self.y-2,self.y+2):
             self.arrived = True
         if self.startpos == 'alto' and self.arrivo == 'sinistra':
             if self.y < self.arrivoy:
                 self.y += self.speedy
                 self.direzione = 'giù'
-            if self.y == self.arrivoy and self.angle != -95:
+            if self.y in range(self.arrivoy -2 , self.arrivoy +2) and self.angle != -95:
                 self.rotatedx(5)
             if self.angle == -95:
                 if self.x > self.arrivox:
@@ -213,7 +213,7 @@ class Car():
             if self.y < self.arrivoy:
                 self.y += self.speedy
                 self.direzione = 'giù'
-            if self.y == self.arrivoy and self.angle != 95:
+            if self.y in range(self.arrivoy -2 , self.arrivoy +2) and self.angle != 95:
                 self.rotatesx(5)
             if self.angle == 95:
                 if self.x < self.arrivox:
@@ -224,7 +224,7 @@ class Car():
             if self.y > self.arrivoy:
                 self.y -= self.speedy
                 self.direzione = 'su'
-            if self.y == self.arrivoy and self.angle != 95:
+            if self.y in range(self.arrivoy -2 , self.arrivoy +2) and self.angle != 95:
                 self.rotatesx(5)
             if self.angle == 95:
                 if self.x > self.arrivox:
@@ -236,7 +236,7 @@ class Car():
             if self.y > self.arrivoy:
                 self.y -= self.speedy
                 self.direzione = 'su'
-            if self.y == self.arrivoy and self.angle != -95:
+            if self.y in range(self.arrivoy -2 , self.arrivoy +2) and self.angle != -95:
                 self.rotatedx(5)
             if self.angle == -95:
                 if self.x < self.arrivox:
@@ -249,7 +249,7 @@ class Car():
             if self.x < self.arrivox:
                 self.x += self.speedx
                 self.direzione = 'destra'
-            if self.x == self.arrivox and self.angle != 95:
+            if self.x in range(self.arrivox-2 , self.arrivox +2) and self.angle != 95:
                 self.rotatesx(5)
             if self.angle == 95:
                 if self.y > self.arrivoy:
@@ -261,7 +261,7 @@ class Car():
             if self.x < self.arrivox:
                 self.x += self.speedx
                 self.direzione = 'destra'
-            if self.x == self.arrivox and self.angle != -95:
+            if self.x in range(self.arrivox-2 , self.arrivox +2) and self.angle != -95:
                 self.rotatedx(5)
             if self.angle == -95:
                 if self.y < self.arrivoy:
@@ -273,7 +273,7 @@ class Car():
             if self.x > self.arrivox:
                 self.x -= self.speedx
                 self.direzione = 'sinistra'
-            if self.x == self.arrivox and self.angle != -95:
+            if self.x in range(self.arrivox-2 , self.arrivox +2) and self.angle != -95:
                 self.rotatedx(5)
             if self.angle == -95:
                 if self.y > self.arrivoy:
@@ -285,7 +285,7 @@ class Car():
             if self.x > self.arrivox:
                 self.x -= self.speedx
                 self.direzione = 'sinistra'
-            if self.x == self.arrivox and self.angle != 95:
+            if self.x in range(self.arrivox-2 , self.arrivox +2) and self.angle != 95:
                 self.rotatesx(5)
             if self.angle == 95:
                 if self.y < self.arrivoy:

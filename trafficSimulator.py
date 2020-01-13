@@ -33,11 +33,17 @@ initSemafori()
 x = 0
 y = 0
 dsds = 0
-# evento per chiamare inizializza ogni secondo
-TIMER1_EVENT = pygame.USEREVENT + 1
-pygame.time.set_timer(TIMER1_EVENT, 2000)
+# evento per chiamare inizializza ogni tot secondi
+TIMER_GREEn = pygame.USEREVENT + 1
+pygame.time.set_timer(TIMER_GREEn, 3000)
+TIMER_ORANGe = pygame.USEREVENT + 2
+pygame.time.set_timer(TIMER_ORANGe, 2000)
+TIMER_REd = pygame.USEREVENT + 3
+pygame.time.set_timer(TIMER_REd , 1500)
+
 
 signal_counter = 0
+signal_counter1 = 1
 while True:
 
     disegna_oggetti(listacar, textsurface, textsurface2, listasemafori)
@@ -50,7 +56,6 @@ while True:
         BLUE = (0, 0, 255)
         # pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
         # pygame.draw.rect(SCHERMO, BLUE, car.visione)
-
         # for n in listasemafori:
         #     pygame.draw.rect(SCHERMO, BLUE, n.rect)
         # pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
@@ -72,7 +77,20 @@ while True:
         # Per ricevere coordinate sulla poszione del mouse
         x, y = pygame.mouse.get_pos()
         print("X : {} Y: {}".format(x, y))
-        # if event.type == TIMER1_EVENT:
+        if event.type == TIMER_REd:
+            inizializza(1)
+        if event.type == TIMER_GREEn:
+            signal_counter1 += 1
+            signal_counter += 1
+            if signal_counter > 2:
+                signal_counter = 0
+            if signal_counter1 > 2:
+                signal_counter1 = 0
+                
+        listasemafori[0].change_sign(signal_counter1)    
+        listasemafori[2].change_sign(signal_counter1)    
+        listasemafori[1].change_sign(signal_counter)    
+        listasemafori[3].change_sign(signal_counter)    
         #     inizializza(1)
         # per inizializzare macchina con click
         if event.type == pygame.MOUSEBUTTONUP:
