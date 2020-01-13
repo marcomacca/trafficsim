@@ -19,11 +19,15 @@ def inizializza(Numerocars):
         listacar.append(a)
 
 
-inizializza(10)
+inizializza(1)
 # initcordinate solo per test
 x = 0
 y = 0
 dsds = 0
+#evento per chiamare inizializza ogni secondo
+TIMER1_EVENT = pygame.USEREVENT + 1
+pygame.time.set_timer(TIMER1_EVENT, 2000)
+
 
 while True:
     b = Trafficlight()
@@ -41,16 +45,22 @@ while True:
         # rimuovo le auto che sono arrivate a destinazione
         if car.arrived:
             listacar.remove(car)
+    time = pygame.time.get_ticks()/1000
+    message = 'Time: ' + str(round(time))
+
+    textsurface = myfont.render(message, False, (0, 0, 0))       
     textsurface2 = myfont.render(
         'start'+str(listacar[0].ingombro), False, (0, 0, 0))
-    textsurface = myfont.render(
-        'collisioni'+str(listacar[0].direzione), False, (0, 0, 0))
+    # textsurface = myfont.render(
+    #     'collisioni'+str(listacar[0].direzione), False, (0, 0, 0))
     #checkCollision(listacar)
     aggiorna()
     for event in pygame.event.get():
         # Per ricevere coordinate sulla poszione del mouse
         # x, y = pygame.mouse.get_pos()
         # print("X : {} Y: {}".format(x, y))
+        if event.type == TIMER1_EVENT:
+            inizializza(2)
         # per inizializzare macchina con click
         if event.type == pygame.MOUSEBUTTONUP:
             inizializza(1)
