@@ -11,8 +11,8 @@ EndCoordinate = [[26, 220], [590, 16], [390, 730], [966, 500], [526, 16]]
 # Carico Immagini
 car1img = pygame.image.load('imgGame\\auto.png')
 car2img = pygame.image.load('imgGame\\auto2.png')
-auto1 = pygame.transform.scale(car1img, (93, 46))
-auto2 = pygame.transform.scale(car2img, (93, 46))
+auto1 = pygame.transform.scale(car1img, (31, 15))
+auto2 = pygame.transform.scale(car2img, (31, 15))
 
 
 class Car():

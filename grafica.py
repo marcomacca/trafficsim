@@ -18,10 +18,11 @@ def aggiorna():
     SCHERMO.fill((0, 0, 0))
 
 
-def disegna_oggetti(cars, testo1, testo2, b):
+def disegna_oggetti(cars, testo1, testo2,semafori ):
     SCHERMO.blit(sfondo, (0, 0))
     SCHERMO.blit(testo1, (10, 100))
     SCHERMO.blit(testo2, (10, 10))
-    SCHERMO.blit(b.image, (10, 100))
+    for s in semafori :
+        SCHERMO.blit(s.image, s.pos)
     for n in cars:
         SCHERMO.blit(n.image, n.pos)
