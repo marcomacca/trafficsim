@@ -39,7 +39,7 @@ pygame.time.set_timer(TIMER_GREEn, 3000)
 TIMER_ORANGe = pygame.USEREVENT + 2
 pygame.time.set_timer(TIMER_ORANGe, 2000)
 TIMER_REd = pygame.USEREVENT + 3
-pygame.time.set_timer(TIMER_REd , 1500)
+pygame.time.set_timer(TIMER_REd , 3000)
 
 
 signal_counter = 0
@@ -54,7 +54,7 @@ while True:
         car.anticollisione(xlist)
         car.controllosemaforo(listasemafori)
         BLUE = (0, 0, 255)
-        # pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
+        #pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
         # pygame.draw.rect(SCHERMO, BLUE, car.visione)
         # for n in listasemafori:
         #     pygame.draw.rect(SCHERMO, BLUE, n.rect)
