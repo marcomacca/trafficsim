@@ -19,10 +19,10 @@ def inizializza(Numerocars):
         listacar.append(a)
 def initSemafori():
     global listasemafori
-    n1 = Trafficlight(329,596)
-    n2 = Trafficlight(329,107)
-    n3 = Trafficlight(680,107)
-    n4 = Trafficlight(680,595)
+    n1 = Trafficlight(560,680)
+    n2 = Trafficlight(560,107)
+    n3 = Trafficlight(1100,107)
+    n4 = Trafficlight(1025,680)
     listasemafori = [n1,n2,n3,n4]
     
 
@@ -69,10 +69,11 @@ while True:
         # Per ricevere coordinate sulla poszione del mouse
         x, y = pygame.mouse.get_pos()
         print("X : {} Y: {}".format(x, y))
-        if event.type == TIMER1_EVENT:
-            inizializza(1)
+        #if event.type == TIMER1_EVENT:
+            #inizializza(1)
         # per inizializzare macchina con click
         if event.type == pygame.MOUSEBUTTONUP:
+            inizializza(1)
             signal_counter+=1
             if signal_counter>2:
                 signal_counter=0 

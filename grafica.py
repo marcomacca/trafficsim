@@ -4,9 +4,9 @@ import pygame
 pygame.init()
 # costanti per schermata
 sfondo = pygame.image.load('imgGame\incrocio2png.png')
-sfondo = pygame.transform.scale(sfondo, (1024, 768))
+sfondo = pygame.transform.scale(sfondo, (1600, 1024))
 myfont = pygame.font.SysFont('Comic Sans MS', 30)
-SCHERMO = pygame.display.set_mode((1024, 768))
+SCHERMO = pygame.display.set_mode((1600, 1024))
 FPS = 60
 textsurface = myfont.render('', False, (0, 0, 0))  # testo per coordinate
 textsurface2 = myfont.render('', False, (0, 0, 0))  # testo per coordinate

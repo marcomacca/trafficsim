@@ -2,17 +2,17 @@ import random
 import pygame
 
 # Coordinate
-Centro = (512, 384)
-EndCoordinate = [[26, 220], [590, 16], [390, 730], [966, 500], [526, 16]]
-LaneCoordinate = [[26, 500], [966, 220], [390, 16], [590, 730]]
-LaneCentrali = [[460, 16], [966, 316], [526, 730], [26, 420]]
-EndCoordinate = [[26, 220], [590, 16], [390, 730], [966, 500], [526, 16]]
+Centro = (804, 464)
+EndCoordinate = [[26, 326], [850, 16], [646, 990], [1546, 602], [946, 16]]
+LaneCoordinate = [[26, 600], [1546, 326], [736, 16], [850, 990]]
+LaneCentrali = [[620, 16], [1546, 410], [946, 990], [26, 500]]
+
 
 # Carico Immagini
 car1img = pygame.image.load('imgGame\\auto.png')
 car2img = pygame.image.load('imgGame\\auto2.png')
-auto1 = pygame.transform.scale(car1img, (31, 15))
-auto2 = pygame.transform.scale(car2img, (31, 15))
+auto1 = pygame.transform.scale(car1img, (68, 33))
+auto2 = pygame.transform.scale(car2img, (68, 33))
 
 
 class Car():
@@ -22,11 +22,11 @@ class Car():
         self.x = self.initcoordinate[0]
         self.y = self.initcoordinate[1]
         self.image = random.choice([auto1, auto2])
-        if self.x == 966:
+        if self.x == 1546:
             self.image = pygame.transform.rotate(self.image, 180)
-        if self.x == 390 or self.x == 460:
+        if self.x == 736 or self.x == 620:
             self.image = pygame.transform.rotate(self.image, -90)
-        if self.x == 590 or self.x == 526:
+        if self.x == 850 or self.x == 946:
             self.image = pygame.transform.rotate(self.image, 90)
         self.rect = self.image.get_rect()
         self.angle = 0
@@ -48,19 +48,19 @@ class Car():
 
     def randomCoordinateEND(self):
         cordinate = [x for x in EndCoordinate if x[0] !=
-             self.initcoordinate[0] and x[1] != self.initcoordinate[1]]
+                     self.initcoordinate[0] and x[1] != self.initcoordinate[1]]
         self.endcoordinate = random.choice(cordinate)
         self.arrivox, self.arrivoy = self.endcoordinate[0], self.endcoordinate[1]
         # self.arrivoy = self.endcoordinate[1]
 
     def checklane(self):
         if self.startpos == 'destra' or self.startpos == 'sinistra':
-            if abs(self.initcoordinate[1]-Centro[1]) > 115:
+            if abs(self.initcoordinate[1]-Centro[1]) > 100:
                 self.lane = 'esterna'
             else:
                 self.lane = 'centro'
         if self.startpos == 'alto' or self.startpos == 'basso':
-            if abs(self.initcoordinate[0]-Centro[0]) > 70:
+            if abs(self.initcoordinate[0]-Centro[0]) > 100:
                 self.lane = 'esterna'
             else:
                 self.lane = 'centro'
@@ -79,10 +79,10 @@ class Car():
             # si sta muovendo
             if self.lane != 'esterna' and self.initcoordinate[1] != self.y:
                 if Centro[0] > self.initcoordinate[0]:  # alto a alto destra
-                    if abs(self.x - Centro[0]) < 122:
+                    if abs(self.x - Centro[0]) < 164:
                         self.x -= self.speedx
                 elif Centro[0] < self.initcoordinate[0]:  # basso a basso destra
-                    if abs(self.x - Centro[0]) < 78:
+                    if abs(self.x - Centro[0]) < 140:
                         self.x += self.speedx
 
     def changelanerevers(self):  # esterno interno
@@ -93,31 +93,29 @@ class Car():
                     if abs(self.y - Centro[1]) > 70:
                         self.y += self.speedy
                 elif Centro[1] < self.initcoordinate[1]:  # sinistra
-                    if abs(self.y - Centro[1]) > 48:
+                    if abs(self.y - Centro[1]) > 44:
                         self.y -= self.speedy
         if self.startpos == 'alto' or self.startpos == 'basso':
             # si sta muovendo
             if self.lane == 'esterna' and self.initcoordinate[1] != self.y:
                 if Centro[0] > self.initcoordinate[0]:  # alto
-                    if abs(self.x - Centro[0]) > 52:
+                    if abs(self.x - Centro[0]) > 70:
                         self.x += self.speedx
                 elif Centro[0] < self.initcoordinate[0]:  # basso
-                    if abs(self.x - Centro[0]) > 12:
+                    if abs(self.x - Centro[0]) > 26:
                         self.x -= self.speedx
-                        
+
     def provacollisione(self, listacar):
         collide = False
         for n in listacar:
             if self.visione.colliderect(n.ingombro):
-                self.speedy = 0 
+                self.speedy = 0
                 self.speedx = 0
-                collide = True 
-            if not collide:              
+                collide = True
+            if not collide:
                 self.speedy = 2
                 self.speedx = 2
-                collide = False   
-
-
+                collide = False
 
     def percorsoArrivo(self):
 
@@ -280,7 +278,7 @@ class Car():
                 self.ingombro.topright, self.image.get_size())
         if self.direzione == 'sinistra':
             self.visione = pygame.Rect((self.ingombro.topleft[0]-(self.image.get_size())[
-                                      1]*2, self.ingombro.topleft[1]), self.image.get_size())
+                1]*2, self.ingombro.topleft[1]), self.image.get_size())
         if self.direzione == 'su':
             self.visione = pygame.Rect((self.ingombro.topleft[0], self.ingombro.topleft[1]-(
                 self.image.get_size())[0]*2), self.image.get_size())
