@@ -1,5 +1,5 @@
 import pygame
-signal_list = ['imgGame\\green.png', 'imgGame\\yellow.png', 'imgGame\\red.png']
+signal_list = ['imgGame\\red.png','imgGame\\green.png', 'imgGame\\yellow.png',]
 
 # n2 = Trafficlight(560,107)
 # n3 = Trafficlight(1100,107)
@@ -8,24 +8,23 @@ signal_list = ['imgGame\\green.png', 'imgGame\\yellow.png', 'imgGame\\red.png']
 
 class Trafficlight():
     def __init__(self, x, y):
-        self.image = pygame.image.load('imgGame\\green.png')
+        self.image = pygame.image.load('imgGame\\red.png')
         self.image = pygame.transform.scale(self.image, (31, 81))
         self.pos = (x, y)
         self.rect = None
-        self.createrect()
-        self.colore = 'green'
-        # self.rect=self.image.get_rect(center=(700,50))
+        self.createrect() # per ingombro fermata
+        self.colore = 'red'
 
     def change_sign(self, index):
         color = signal_list[index]
         self.image = pygame.image.load(color)
         self.image = pygame.transform.scale(self.image, (31, 81))
         if index == 0:
-            self.colore = 'green'
+            self.colore = 'red'
         elif index == 1:
-            self.colore = 'orange'
+            self.colore = 'green'
         elif index == 2:
-            self.colore = 'red'        
+            self.colore = 'yellow'        
         
 
     def createrect(self):

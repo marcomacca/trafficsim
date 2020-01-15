@@ -37,9 +37,9 @@ dsds = 0
 TIMER_GREEn = pygame.USEREVENT + 1
 pygame.time.set_timer(TIMER_GREEn, 3000)
 TIMER_ORANGe = pygame.USEREVENT + 2
-pygame.time.set_timer(TIMER_ORANGe, 2000)
+pygame.time.set_timer(TIMER_ORANGe, 9000)
 TIMER_REd = pygame.USEREVENT + 3
-pygame.time.set_timer(TIMER_REd , 3000)
+pygame.time.set_timer(TIMER_REd, 3000)
 
 
 signal_counter = 0
@@ -54,7 +54,8 @@ while True:
         car.anticollisione(xlist)
         car.controllosemaforo(listasemafori)
         BLUE = (0, 0, 255)
-        #pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
+        #
+        # pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
         #pygame.draw.rect(SCHERMO, BLUE, car.visione)
         # for n in listasemafori:
         #     pygame.draw.rect(SCHERMO, BLUE, n.rect)
@@ -81,25 +82,22 @@ while True:
             inizializza(1)
         if event.type == TIMER_GREEn:
             signal_counter1 += 1
-            signal_counter += 1
-            if signal_counter > 2:
-                signal_counter = 0
             if signal_counter1 > 2:
                 signal_counter1 = 0
-                
-        listasemafori[0].change_sign(signal_counter1)    
-        listasemafori[2].change_sign(signal_counter1)    
-        listasemafori[1].change_sign(signal_counter)    
-        listasemafori[3].change_sign(signal_counter)    
+        if event.type == TIMER_ORANGe:
+            signal_counter += 1
+            if signal_counter > 3:
+                signal_counter = 0
+        listasemafori[signal_counter].change_sign(signal_counter1)
         #     inizializza(1)
         # per inizializzare macchina con click
         if event.type == pygame.MOUSEBUTTONUP:
             inizializza(1)
-            signal_counter += 1
-            if signal_counter > 2:
-                signal_counter = 0
-            for n in listasemafori:
-                n.change_sign(signal_counter)
+            # signal_counter += 1
+            # if signal_counter > 2:
+            #     signal_counter = 0
+            # for n in listasemafori:
+            #     n.change_sign(signal_counter)
 
             # inizializza(1)
             # print("click")

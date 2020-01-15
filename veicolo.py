@@ -3,30 +3,33 @@ import pygame
 
 # Coordinate
 Centro = (804, 464)
-EndCoordinate = [[26, 326], [850, 16], [646, 990], [1546, 602], [946, 16]]
-LaneCoordinate = [[26, 600], [1546, 326], [736, 16], [850, 990]]
-LaneCentrali = [[620, 16], [1546, 410], [946, 990], [26, 500]]
+EndCoordinate = [[26, 306], [940, 16], [630, 976], [1546, 576], [834, 16]]
+LaneCoordinate = [[26, 576], [1546, 306], [736, 16], [940, 976]]
+LaneCentrali = [[620, 16], [1546, 396], [834, 976], [26, 490]]
 
 
 # Carico Immagini
 car1img = pygame.image.load('imgGame\\auto.png')
 car2img = pygame.image.load('imgGame\\auto2.png')
+truckimg = pygame.image.load('imgGame\\truck.png')
+
 auto1 = pygame.transform.scale(car1img, (68, 33))
 auto2 = pygame.transform.scale(car2img, (68, 33))
+truck = pygame.transform.scale(truckimg, (100, 50))
+
 
 
 class Car():
     def __init__(self):
         self.randomlane = random.choice([LaneCentrali, LaneCoordinate])
         self.initcoordinate = random.choice(self.randomlane)
-        self.x = self.initcoordinate[0]
-        self.y = self.initcoordinate[1]
-        self.image = random.choice([auto1, auto2])
+        self.x , self.y = self.initcoordinate[0] , self.initcoordinate[1]
+        self.image = random.choice([auto1, auto2, auto1, auto2, truck])
         if self.x == 1546:
             self.image = pygame.transform.rotate(self.image, 180)
         if self.x == 736 or self.x == 620:
             self.image = pygame.transform.rotate(self.image, -90)
-        if self.x == 850 or self.x == 946:
+        if self.x == 940 or self.x == 834:
             self.image = pygame.transform.rotate(self.image, 90)
         self.rect = self.image.get_rect()
         self.angle = 0
@@ -95,7 +98,7 @@ class Car():
                     if abs(self.y - Centro[1]) > 70:
                         self.y += self.speedy
                 elif Centro[1] < self.initcoordinate[1]:  # sinistra
-                    if abs(self.y - Centro[1]) > 44:
+                    if abs(self.y - Centro[1]) > 30:
                         self.y -= self.speedy
         if self.startpos == 'alto' or self.startpos == 'basso':
             # si sta muovendo
@@ -104,7 +107,7 @@ class Car():
                     if abs(self.x - Centro[0]) > 70:
                         self.x += self.speedx
                 elif Centro[0] < self.initcoordinate[0]:  # basso
-                    if abs(self.x - Centro[0]) > 26:
+                    if abs(self.x - Centro[0]) > 32:
                         self.x -= self.speedx
 
     def anticollisione(self, listacar):
@@ -114,13 +117,13 @@ class Car():
                 self.speedy = 0
                 self.speedx = 0
                 collide = True
+            # se collidono le cancello per risolvere lo spawn di due auto nello stesso punto
             if self.ingombro.colliderect(n.ingombro):
                 self.arrived = True
             if not collide:
                 self.speedy = 2
                 self.speedx = 2
                 collide = False
-
 
     def controllosemaforo(self, listasemafori):
         collide = False
@@ -130,7 +133,7 @@ class Car():
                     self.speedy = 0
                     self.speedx = 0
                     break
-            elif s.colore == 'orange':
+            elif s.colore == 'yellow':
                 if self.visione.colliderect(s.rect):
                     self.speedy = 1
                     self.speedx = 1
