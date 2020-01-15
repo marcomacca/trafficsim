@@ -4,8 +4,8 @@ import pygame
 # Coordinate
 Centro = (804, 464)
 EndCoordinate = [[26, 306], [26, 406], [940, 16], [834, 16],
-                 [630, 976], [730, 976], [1546, 584], [1546, 684]]
-LaneCoordinate = [[26, 584], [1546, 306], [756, 16], [940, 976]]
+                 [630, 976], [730, 976], [1546, 584], [1546, 484]]
+LaneCoordinate = [[26, 584], [1546, 306], [630,16], [940, 976]]
 LaneCentrali = [[728, 16], [1546, 396], [834, 976], [26, 490]]
 
 
@@ -31,7 +31,7 @@ class Car():
         self.image = random.choices(population, weights)[0]
         if self.x == 1546:
             self.image = pygame.transform.rotate(self.image, 180)
-        if self.x == 756 or self.x == 728:
+        if self.x == 630 or self.x == 728:
             self.image = pygame.transform.rotate(self.image, -90)
         if self.x == 940 or self.x == 834:
             self.image = pygame.transform.rotate(self.image, 90)

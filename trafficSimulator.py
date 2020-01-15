@@ -93,6 +93,10 @@ while True:
         # per inizializzare macchina con click
         if event.type == pygame.MOUSEBUTTONUP:
             inizializza(1)
+        if event.type == pygame.VIDEORESIZE:
+            # There's some code to add back window content here.
+            SCHERMO = pygame.display.set_mode((event.w, event.h),
+                                              pygame.RESIZABLE)    
         # gestisco la chiusura della finestra
         if event.type == pygame.QUIT:
             pygame.quit()
