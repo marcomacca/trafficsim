@@ -5,7 +5,7 @@ import pygame
 Centro = (804, 464)
 EndCoordinate = [[26, 306], [940, 16], [630, 976], [1546, 576], [834, 16]]
 LaneCoordinate = [[26, 576], [1546, 306], [736, 16], [940, 976]]
-LaneCentrali = [[620, 16], [1546, 396], [834, 976], [26, 490]]
+LaneCentrali = [[610, 16], [1546, 396], [834, 976], [26, 490]]
 
 
 # Carico Immagini
@@ -16,7 +16,9 @@ truckimg = pygame.image.load('imgGame\\truck.png')
 auto1 = pygame.transform.scale(car1img, (68, 33))
 auto2 = pygame.transform.scale(car2img, (68, 33))
 truck = pygame.transform.scale(truckimg, (100, 50))
-
+# % di uscita di auto su auto2 su truck 40,40,20
+population = [auto1,auto2,truck]
+weights = [0.4, 0.4, 0.2]
 
 
 class Car():
@@ -24,10 +26,10 @@ class Car():
         self.randomlane = random.choice([LaneCentrali, LaneCoordinate])
         self.initcoordinate = random.choice(self.randomlane)
         self.x , self.y = self.initcoordinate[0] , self.initcoordinate[1]
-        self.image = random.choice([auto1, auto2, auto1, auto2, truck])
+        self.image = random.choices(population,weights)[0]     # in uscita ho un array perciò prendo [0]
         if self.x == 1546:
             self.image = pygame.transform.rotate(self.image, 180)
-        if self.x == 736 or self.x == 620:
+        if self.x == 736 or self.x == 610:
             self.image = pygame.transform.rotate(self.image, -90)
         if self.x == 940 or self.x == 834:
             self.image = pygame.transform.rotate(self.image, 90)

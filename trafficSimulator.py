@@ -93,15 +93,8 @@ while True:
         # per inizializzare macchina con click
         if event.type == pygame.MOUSEBUTTONUP:
             inizializza(1)
-            # signal_counter += 1
-            # if signal_counter > 2:
-            #     signal_counter = 0
-            # for n in listasemafori:
-            #     n.change_sign(signal_counter)
-
-            # inizializza(1)
-            # print("click")
         # gestisco la chiusura della finestra
         if event.type == pygame.QUIT:
             pygame.quit()
             SystemExit
+    pygame.display.flip()            

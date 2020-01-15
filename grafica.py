@@ -14,8 +14,8 @@ textsurface2 = myfont.render('', False, (0, 0, 0))  # testo per coordinate
 
 def aggiorna():
     pygame.display.update()
-    pygame.time.Clock().tick(FPS)
-    SCHERMO.fill((0, 0, 0))
+    pygame.time.Clock().tick(180)
+    
 
 
 def disegna_oggetti(cars, testo1, testo2, semafori):
