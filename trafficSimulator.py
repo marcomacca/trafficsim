@@ -56,8 +56,8 @@ while True:
         BLUE = (0, 0, 255)
         #
         # pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
-        #pygame.draw.rect(SCHERMO, BLUE, car.visione)
         # for n in listasemafori:
+        pygame.draw.rect(SCHERMO, BLUE, car.visione)
         #     pygame.draw.rect(SCHERMO, BLUE, n.rect)
         # pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
 
