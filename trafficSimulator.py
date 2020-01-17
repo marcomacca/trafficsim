@@ -34,12 +34,12 @@ x = 0
 y = 0
 dsds = 0
 # evento per chiamare inizializza ogni tot secondi
-TIMER_GREEn = pygame.USEREVENT + 1
-pygame.time.set_timer(TIMER_GREEn, 3000)
-TIMER_ORANGe = pygame.USEREVENT + 2
-pygame.time.set_timer(TIMER_ORANGe, 9000)
-TIMER_REd = pygame.USEREVENT + 3
-pygame.time.set_timer(TIMER_REd, 3000)
+timerlight = pygame.USEREVENT + 1
+pygame.time.set_timer(timerlight, 3000)
+timertrafficlight = pygame.USEREVENT + 2
+pygame.time.set_timer(timertrafficlight, 9000)
+spawntimer = pygame.USEREVENT + 3
+pygame.time.set_timer(spawntimer, 3000)
 
 
 signal_counter = 0
@@ -57,8 +57,8 @@ while True:
         #
         # pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
         # for n in listasemafori:
-        pygame.draw.rect(SCHERMO, BLUE, car.visione)
-        #     pygame.draw.rect(SCHERMO, BLUE, n.rect)
+        #pygame.draw.rect(SCHERMO, BLUE, car.visione)
+        # pygame.draw.rect(SCHERMO, BLUE, n.rect)
         # pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
 
         # rimuovo le auto che sono arrivate a destinazione
@@ -76,15 +76,15 @@ while True:
     aggiorna()
     for event in pygame.event.get():
         # Per ricevere coordinate sulla poszione del mouse
-        x, y = pygame.mouse.get_pos()
-        print("X : {} Y: {}".format(x, y))
-        if event.type == TIMER_REd:
+        # x, y = pygame.mouse.get_pos()
+        # print("X : {} Y: {}".format(x, y))
+        if event.type == spawntimer:
             inizializza(1)
-        if event.type == TIMER_GREEn:
+        if event.type == timerlight:
             signal_counter1 += 1
             if signal_counter1 > 2:
                 signal_counter1 = 0
-        if event.type == TIMER_ORANGe:
+        if event.type == timertrafficlight:
             signal_counter += 1
             if signal_counter > 3:
                 signal_counter = 0
