@@ -55,9 +55,9 @@ while True:
         car.controllosemaforo(listasemafori)
         BLUE = (0, 0, 255)
         #
-        # pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
+        #pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
         # for n in listasemafori:
-        #pygame.draw.rect(SCHERMO, BLUE, car.visione)
+        #     pygame.draw.rect(SCHERMO, BLUE, n.rect)
         # pygame.draw.rect(SCHERMO, BLUE, n.rect)
         # pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
 
@@ -70,8 +70,6 @@ while True:
     textsurface = myfont.render(message, False, (0, 0, 0))
     textsurface2 = myfont.render(
         'start'+str(listacar[0].ingombro), False, (0, 0, 0))
-    # textsurface = myfont.render(
-    #     'collisioni'+str(listacar[0].direzione), False, (0, 0, 0))
 
     aggiorna()
     for event in pygame.event.get():
@@ -89,7 +87,6 @@ while True:
             if signal_counter > 3:
                 signal_counter = 0
         listasemafori[signal_counter].change_sign(signal_counter1)
-        #     inizializza(1)
         # per inizializzare macchina con click
         if event.type == pygame.MOUSEBUTTONUP:
             inizializza(1)

@@ -130,7 +130,7 @@ class Car():
                 collide = False
 
     def controllosemaforo(self, listasemafori):
-        collide = False
+        #collide = False
         for s in listasemafori:
             if s.colore == 'red':
                 if self.ingombro.colliderect(s.rect):
