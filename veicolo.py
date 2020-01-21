@@ -3,7 +3,7 @@ import pygame
 
 # Coordinate
 Centro = (804, 464)
-EndCoordinate = [[26, 306], [26, 406], [940, 16], [834, 16],
+EndCoordinate = [[-100, 306], [-100, 406], [940, -100], [834, -100],
                  [630, 976], [730, 976], [1600, 584], [1600, 484]]
 LaneCoordinate = [[-100, 584], [1600, 306], [630, -100], [940, 1024]]
 LaneCentrali = [[728, -100], [1600, 396], [834, 1024], [-100, 490]]
@@ -31,9 +31,9 @@ class Car():
         self.image = random.choices(population, weights)[0]
         if self.x == 1600:
             self.image = pygame.transform.rotate(self.image, 180)
-        if self.x == 630 or self.x == 728:
+        elif self.x == 630 or self.x == 728:
             self.image = pygame.transform.rotate(self.image, -90)
-        if self.x == 940 or self.x == 834:
+        elif self.x == 940 or self.x == 834:
             self.image = pygame.transform.rotate(self.image, 90)
         self.rect = self.image.get_rect()
         self.angle = 0
@@ -60,7 +60,7 @@ class Car():
                      self.initcoordinate[0] and x[1] != self.initcoordinate[1]]
         self.endcoordinate = random.choice(cordinate)
         self.arrivox, self.arrivoy = self.endcoordinate[0], self.endcoordinate[1]
-        # self.arrivoy = self.endcoordinate[1]
+        
 
     def checklane(self):
         if self.startpos == 'destra' or self.startpos == 'sinistra':
@@ -68,7 +68,7 @@ class Car():
                 self.lane = 'esterna'
             else:
                 self.lane = 'centro'
-        if self.startpos == 'alto' or self.startpos == 'basso':
+        elif self.startpos == 'alto' or self.startpos == 'basso':
             if abs(self.initcoordinate[0]-Centro[0]) > 100:
                 self.lane = 'esterna'
             else:
@@ -84,7 +84,7 @@ class Car():
                 elif Centro[1] < self.initcoordinate[1]:  # basso a basso destra
                     if abs(self.y - Centro[1]) < 116:
                         self.y += self.speedy
-        if self.startpos == 'alto' or self.startpos == 'basso':
+        elif self.startpos == 'alto' or self.startpos == 'basso':
             # si sta muovendo
             if self.lane != 'esterna' and self.initcoordinate[1] != self.y:
                 if Centro[0] > self.initcoordinate[0]:  # alto a alto destra
@@ -104,7 +104,7 @@ class Car():
                 elif Centro[1] < self.initcoordinate[1]:  # sinistra
                     if abs(self.y - Centro[1]) > 30:
                         self.y -= self.speedy
-        if self.startpos == 'alto' or self.startpos == 'basso':
+        elif self.startpos == 'alto' or self.startpos == 'basso':
             # si sta muovendo
             if self.lane == 'esterna' and self.initcoordinate[1] != self.y:
                 if Centro[0] > self.initcoordinate[0]:  # alto
@@ -122,9 +122,9 @@ class Car():
                 self.speedx = 0
                 collide = True
             # se collidono le cancello per risolvere lo spawn di due auto nello stesso punto
-            # if self.ingombro.colliderect(n.ingombro):
-            #     self.arrived = True
-            if not collide:
+            if self.ingombro.colliderect(n.ingombro):
+                self.arrived = True
+            elif not collide:
                 self.speedy = 2
                 self.speedx = 2
                 collide = False
@@ -157,20 +157,20 @@ class Car():
             self.arrivo = 'alto'
             self.direzione = 'su'
         # destra
-        if self.arrivox > Centro[0] and self.arrivoy > Centro[1]:
+        elif self.arrivox > Centro[0] and self.arrivoy > Centro[1]:
             if self.startpos == 'sinistra':
                 self.x += self.speedx
             self.arrivo = 'destra'
             self.direzione = 'destra'
         # sinistra
-        if self.arrivox < Centro[0] and self.arrivoy < Centro[1]:
+        elif self.arrivox < Centro[0] and self.arrivoy < Centro[1]:
             if self.startpos == 'destra':
                 self.x -= self.speedx
             self.arrivo = 'sinistra'
             self.direzione = 'sinistra'
 
         # basso
-        if self.arrivox < Centro[0] and self.arrivoy > Centro[1]:
+        elif self.arrivox < Centro[0] and self.arrivoy > Centro[1]:
             if self.startpos == 'alto':
                 self.y += self.speedy
             self.arrivo = 'basso'
@@ -182,13 +182,13 @@ class Car():
         if self.initcoordinate[0] > Centro[0] and self.initcoordinate[1] < Centro[1]:
             self.startpos = 'destra'
         # basso
-        if self.initcoordinate[0] > Centro[0] and self.initcoordinate[1] > Centro[1]:
+        elif self.initcoordinate[0] > Centro[0] and self.initcoordinate[1] > Centro[1]:
             self.startpos = 'basso'
         # alto
-        if self.initcoordinate[0] < Centro[0] and self.initcoordinate[1] < Centro[1]:
+        elif self.initcoordinate[0] < Centro[0] and self.initcoordinate[1] < Centro[1]:
             self.startpos = 'alto'
         # sinistra
-        if self.initcoordinate[0] < Centro[0] and self.initcoordinate[1] > Centro[1]:
+        elif self.initcoordinate[0] < Centro[0] and self.initcoordinate[1] > Centro[1]:
             self.startpos = 'sinistra'
         self.checklane()
 
@@ -203,24 +203,24 @@ class Car():
         self.angle += angle
 
     def creavisione(self):
-       
+
         if self.direzione == 'destra':
             card = pygame.transform.rotate(self.image, 90)
             self.visione = pygame.Rect(
                 (self.ingombro.topright[0], self.ingombro.topright[1] - 14), card.get_size())
-        if self.direzione == 'sinistra':
+        elif self.direzione == 'sinistra':
             card = pygame.transform.rotate(self.image, 90)
             self.visione = pygame.Rect((self.ingombro.topleft[0]-(self.image.get_size())[
                 1], self.ingombro.topleft[1] - 14), card.get_size())
-        if self.direzione == 'su':
+        elif self.direzione == 'su':
             card = pygame.transform.rotate(self.image, 90)
             self.visione = pygame.Rect((self.ingombro.topleft[0] - 20, self.ingombro.topleft[1]-(
                 self.image.get_size())[0]), card.get_size())
-        if self.direzione == 'giù':
+        elif self.direzione == 'giù':
             card = pygame.transform.rotate(self.image, 90)
             self.visione = pygame.Rect(
                 (self.ingombro.bottomleft[0] - 20, self.ingombro.bottomleft[1]), card.get_size())
-        #prima versione
+        # prima versione
         # if self.direzione == 'destra':
         #     self.visione = pygame.Rect(
         #         self.ingombro.topright, self.image.get_size())
@@ -233,106 +233,110 @@ class Car():
         # if self.direzione == 'giù':
         #     self.visione = pygame.Rect(
         #         self.ingombro.bottomleft, self.image.get_size())
+
     def move(self):
         self.pos = (self.x, self.y)
         self.ingombro = pygame.Rect(self.pos, self.image.get_size())
         self.percorsoArrivo()
-        if self.arrivox in range(self.x-2, self.x+2) and self.arrivoy in range(self.y-2, self.y+2):
+        # if self.x in range(self.arrivox - 5, self.arrivox + 5) and self.y in range(self.arrivoy - 5, self.arrivoy + 5):
+        #     self.arrived = True
+        if self.x in range(self.arrivox - 2, self.arrivox +2) and self.y in range(self.arrivoy - 2, self.arrivoy + 2):
             self.arrived = True
-        if self.startpos == 'alto' and self.arrivo == 'sinistra':
-            if self.y < self.arrivoy:
-                self.y += self.speedy
-                self.direzione = 'giù'
-            if self.y in range(self.arrivoy - 2, self.arrivoy + 2) and self.angle != -95:
-                self.rotatedx(5)
-            if self.angle == -95:
-                if self.x > self.arrivox:
-                    self.x -= self.speedx
-                    self.direzione = 'sinistra'
-            if self.lane == 'centro':
-                self.changelane()
-        if self.startpos == 'alto' and self.arrivo == 'destra':
-            if self.y < self.arrivoy:
-                self.y += self.speedy
-                self.direzione = 'giù'
-            if self.y in range(self.arrivoy - 2, self.arrivoy + 2) and self.angle != 95:
-                self.rotatesx(5)
-            if self.angle == 95:
-                if self.x < self.arrivox:
-                    self.x += self.speedx
-            if self.lane == 'esterna':
-                self.changelanerevers()
-        if self.startpos == 'basso' and self.arrivo == 'sinistra':
-            if self.y > self.arrivoy:
-                self.y -= self.speedy
-                self.direzione = 'su'
-            if self.y in range(self.arrivoy - 2, self.arrivoy + 2) and self.angle != 95:
-                self.rotatesx(5)
-            if self.angle == 95:
-                if self.x > self.arrivox:
-                    self.x -= self.speedx
-                    self.direzione = 'sinistra'
-            if self.lane == 'esterna':
-                self.changelanerevers()
-        if self.startpos == 'basso' and self.arrivo == 'destra':
-            if self.y > self.arrivoy:
-                self.y -= self.speedy
-                self.direzione = 'su'
-            if self.y in range(self.arrivoy - 2, self.arrivoy + 2) and self.angle != -95:
-                self.rotatedx(5)
-            if self.angle == -95:
+        else:
+            if self.startpos == 'alto' and self.arrivo == 'sinistra':
+                if self.y < self.arrivoy:
+                    self.y += self.speedy
+                    self.direzione = 'giù'
+                elif self.y in range(self.arrivoy - 2, self.arrivoy + 2) and self.angle != -95:
+                    self.rotatedx(5)
+                elif self.angle == -95:
+                    if self.x > self.arrivox:
+                        self.x -= self.speedx
+                        self.direzione = 'sinistra'
+                if self.lane == 'centro':
+                    self.changelane()
+            if self.startpos == 'alto' and self.arrivo == 'destra':
+                if self.y < self.arrivoy:
+                    self.y += self.speedy
+                    self.direzione = 'giù'
+                elif self.y in range(self.arrivoy - 2, self.arrivoy + 2) and self.angle != 95:
+                    self.rotatesx(5)
+                elif self.angle == 95:
+                    if self.x < self.arrivox:
+                        self.x += self.speedx
+                if self.lane == 'esterna':
+                    self.changelanerevers()
+            if self.startpos == 'basso' and self.arrivo == 'sinistra':
+                if self.y > self.arrivoy:
+                    self.y -= self.speedy
+                    self.direzione = 'su'
+                elif self.y in range(self.arrivoy - 2, self.arrivoy + 2) and self.angle != 95:
+                    self.rotatesx(5)
+                elif self.angle == 95:
+                    if self.x > self.arrivox:
+                        self.x -= self.speedx
+                        self.direzione = 'sinistra'
+                if self.lane == 'esterna':
+                    self.changelanerevers()
+            if self.startpos == 'basso' and self.arrivo == 'destra':
+                if self.y > self.arrivoy:
+                    self.y -= self.speedy
+                    self.direzione = 'su'
+                elif self.y in range(self.arrivoy - 2, self.arrivoy + 2) and self.angle != -95:
+                    self.rotatedx(5)
+                elif self.angle == -95:
+                    if self.x < self.arrivox:
+                        self.x += self.speedx
+                        self.direzione = 'destra'
+                if self.lane == 'centro':
+                    self.changelane()
+
+            if self.startpos == 'sinistra' and self.arrivo == 'alto':
                 if self.x < self.arrivox:
                     self.x += self.speedx
                     self.direzione = 'destra'
-            if self.lane == 'centro':
-                self.changelane()
-
-        if self.startpos == 'sinistra' and self.arrivo == 'alto':
-            if self.x < self.arrivox:
-                self.x += self.speedx
-                self.direzione = 'destra'
-            if self.x in range(self.arrivox-2, self.arrivox + 2) and self.angle != 95:
-                self.rotatesx(5)
-            if self.angle == 95:
-                if self.y > self.arrivoy:
-                    self.y -= self.speedy
-                    self.direzione = 'su'
-            if self.lane == 'esterna':
-                self.changelanerevers()
-        if self.startpos == 'sinistra' and self.arrivo == 'basso':
-            if self.x < self.arrivox:
-                self.x += self.speedx
-                self.direzione = 'destra'
-            if self.x in range(self.arrivox-2, self.arrivox + 2) and self.angle != -95:
-                self.rotatedx(5)
-            if self.angle == -95:
-                if self.y < self.arrivoy:
-                    self.y += self.speedy
-                    self.direzione = 'giù'
-            if self.lane == 'centro':
-                self.changelane()
-        if self.startpos == 'destra' and self.arrivo == 'alto':
-            if self.x > self.arrivox:
-                self.x -= self.speedx
-                self.direzione = 'sinistra'
-            if self.x in range(self.arrivox-2, self.arrivox + 2) and self.angle != -95:
-                self.rotatedx(5)
-            if self.angle == -95:
-                if self.y > self.arrivoy:
-                    self.y -= self.speedy
-                    self.direzione = 'su'
-            if self.lane == 'centro':
-                self.changelane()
-        if self.startpos == 'destra' and self.arrivo == 'basso':
-            if self.x > self.arrivox:
-                self.x -= self.speedx
-                self.direzione = 'sinistra'
-            if self.x in range(self.arrivox-2, self.arrivox + 2) and self.angle != 95:
-                self.rotatesx(5)
-            if self.angle == 95:
-                if self.y < self.arrivoy:
-                    self.y += self.speedy
-                    self.direzione = 'giù'
-            if self.lane == 'esterna':
-                self.changelanerevers()
-        self.creavisione()
+                elif self.x in range(self.arrivox-2, self.arrivox + 2) and self.angle != 95:
+                    self.rotatesx(5)
+                elif self.angle == 95:
+                    if self.y > self.arrivoy:
+                        self.y -= self.speedy
+                        self.direzione = 'su'
+                if self.lane == 'esterna':
+                    self.changelanerevers()
+            if self.startpos == 'sinistra' and self.arrivo == 'basso':
+                if self.x < self.arrivox:
+                    self.x += self.speedx
+                    self.direzione = 'destra'
+                elif self.x in range(self.arrivox-2, self.arrivox + 2) and self.angle != -95:
+                    self.rotatedx(5)
+                elif self.angle == -95:
+                    if self.y < self.arrivoy:
+                        self.y += self.speedy
+                        self.direzione = 'giù'
+                if self.lane == 'centro':
+                    self.changelane()
+            if self.startpos == 'destra' and self.arrivo == 'alto':
+                if self.x > self.arrivox:
+                    self.x -= self.speedx
+                    self.direzione = 'sinistra'
+                elif self.x in range(self.arrivox-2, self.arrivox + 2) and self.angle != -95:
+                    self.rotatedx(5)
+                elif self.angle == -95:
+                    if self.y > self.arrivoy:
+                        self.y -= self.speedy
+                        self.direzione = 'su'
+                if self.lane == 'centro':
+                    self.changelane()
+            if self.startpos == 'destra' and self.arrivo == 'basso':
+                if self.x > self.arrivox:
+                    self.x -= self.speedx
+                    self.direzione = 'sinistra'
+                elif self.x in range(self.arrivox-2, self.arrivox + 2) and self.angle != 95:
+                    self.rotatesx(5)
+                elif self.angle == 95:
+                    if self.y < self.arrivoy:
+                        self.y += self.speedy
+                        self.direzione = 'giù'
+                if self.lane == 'esterna':
+                    self.changelanerevers()
+            self.creavisione()

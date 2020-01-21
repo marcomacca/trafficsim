@@ -79,8 +79,8 @@ while True:
         BLUE = (0, 0, 255)
         #
         #pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
-        for n in listasemafori:
-            pygame.draw.rect(SCHERMO, BLUE, n.rect)
+        # for n in listasemafori:
+        #     pygame.draw.rect(SCHERMO, BLUE, n.rect)
         # pygame.draw.rect(SCHERMO, BLUE, n.rect)
         # pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
 
@@ -90,7 +90,7 @@ while True:
     # s = round(pygame.time.get_ticks(),2)
 
     textsurface = myfont.render(
-        'FPS:  ' + str(newCar), False, (0, 0, 0))
+        'FPS:  ' + str(len(listacar)), False, (0, 0, 0))
     textsurface2 = myfont.render(
         'Time:  ' + "%02d:%02d" % convert(s1*30), False, (0, 0, 0))
     # textsurface2 = myfont.render(
