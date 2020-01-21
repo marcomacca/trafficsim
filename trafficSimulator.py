@@ -68,7 +68,7 @@ s1 = 0
 # prima prova per regolare spawn macchine su ora
 newCar = 1
 while True:
-    newCar = trafficSet(s1*60)
+    newCar = trafficSet(s1*30)
     disegna_oggetti(listacar, textsurface, textsurface2, listasemafori)
     for i, car in enumerate(listacar):
         car.move()
@@ -79,8 +79,8 @@ while True:
         BLUE = (0, 0, 255)
         #
         #pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
-        # for n in listasemafori:
-        #     pygame.draw.rect(SCHERMO, BLUE, n.rect)
+        for n in listasemafori:
+            pygame.draw.rect(SCHERMO, BLUE, n.rect)
         # pygame.draw.rect(SCHERMO, BLUE, n.rect)
         # pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
 
@@ -92,7 +92,7 @@ while True:
     textsurface = myfont.render(
         'FPS:  ' + str(newCar), False, (0, 0, 0))
     textsurface2 = myfont.render(
-        'Time:  ' + "%02d:%02d" % convert(s1*60), False, (0, 0, 0))
+        'Time:  ' + "%02d:%02d" % convert(s1*30), False, (0, 0, 0))
     # textsurface2 = myfont.render(
     #     'start'+str(listacar[0].ingombro), False, (0, 0, 0))
 
@@ -104,7 +104,7 @@ while True:
             inizializza(newCar)
         if event.type == pygame.USEREVENT+4:
             s1 += 1
-            if s1 == 1440:
+            if s1 == 2880:
                 s1 = 0
         if event.type == timerlight:
             signal_counter1 += 1

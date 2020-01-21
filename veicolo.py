@@ -133,7 +133,7 @@ class Car():
         #collide = False
         for s in listasemafori:
             if s.colore == 'red':
-                if self.ingombro.colliderect(s.rect):
+                if self.visione.colliderect(s.rect):
                     self.speedy = 0
                     self.speedx = 0
                     break

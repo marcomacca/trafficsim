@@ -29,10 +29,10 @@ class Trafficlight():
 
     def createrect(self):
         if self.pos[0] == 560 and self.pos[1] == 680:
-            self.rect = pygame.Rect((496, 471), (20, 180))
+            self.rect = pygame.Rect((496, 485), (20, 165))
         elif self.pos[0] == 560 and self.pos[1] == 107:
-            self.rect = pygame.Rect((592, 188), (200, 20))
+            self.rect = pygame.Rect((592, 188), (190, 20))
         elif self.pos[0] == 1100 and self.pos[1] == 107:
-            self.rect = pygame.Rect((1090, 282), (20, 180))
+            self.rect = pygame.Rect((1090, 282), (20, 165))
         elif self.pos[0] == 1025 and self.pos[1] == 680:
-            self.rect = pygame.Rect((810, 720), (200, 20))
+            self.rect = pygame.Rect((820, 720), (190, 20))
