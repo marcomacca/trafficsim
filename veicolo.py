@@ -122,8 +122,8 @@ class Car():
                 self.speedx = 0
                 collide = True
             # se collidono le cancello per risolvere lo spawn di due auto nello stesso punto
-            if self.ingombro.colliderect(n.ingombro):
-                self.arrived = True
+            # if self.ingombro.colliderect(n.ingombro):
+            #     self.arrived = True
             elif not collide:
                 self.speedy = 2
                 self.speedx = 2
@@ -194,12 +194,12 @@ class Car():
 
     def rotatedx(self, angle):
         self.image = pygame.transform.rotate(self.saved_image, self.angle)
-        #self.rect = self.image.get_rect(center=self.rect.center)
+        self.rect = self.image.get_rect(center=self.rect.center)
         self.angle -= angle
 
     def rotatesx(self, angle):
         self.image = pygame.transform.rotate(self.saved_image, self.angle)
-        #self.rect = self.image.get_rect(center=self.rect.center)
+        self.rect = self.image.get_rect(center=self.rect.center)
         self.angle += angle
 
     def creavisione(self):
@@ -238,10 +238,10 @@ class Car():
         self.pos = (self.x, self.y)
         self.ingombro = pygame.Rect(self.pos, self.image.get_size())
         self.percorsoArrivo()
-        # if self.x in range(self.arrivox - 5, self.arrivox + 5) and self.y in range(self.arrivoy - 5, self.arrivoy + 5):
-        #     self.arrived = True
         if self.x in range(self.arrivox - 2, self.arrivox +2) and self.y in range(self.arrivoy - 2, self.arrivoy + 2):
             self.arrived = True
+        elif self.x < - 100 or self.x > 1600 or self.y < -100 or self.y > 1024:
+            self.arrived = True     
         else:
             if self.startpos == 'alto' and self.arrivo == 'sinistra':
                 if self.y < self.arrivoy:
