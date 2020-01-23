@@ -3,7 +3,6 @@ import pygame
 import datetime
 import random
 from grafica import *
-from collisioncontroller import *
 from veicolo import *
 from trafficlight import *
 
