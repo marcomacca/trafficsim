@@ -78,7 +78,7 @@ while True:
         car.controllosemaforo(listasemafori)
         BLUE = (0, 0, 255)
         #
-        #pygame.draw.rect(SCHERMO, BLUE, car.ingombro)
+        # pygame.draw.rect(SCHERMO, BLUE, car.visione)
         # for n in listasemafori:
         #     pygame.draw.rect(SCHERMO, BLUE, n.rect)
         # pygame.draw.rect(SCHERMO, BLUE, n.rect)
@@ -90,7 +90,7 @@ while True:
     # s = round(pygame.time.get_ticks(),2)
 
     textsurface = myfont.render(
-        'FPS:  ' + str(len(listacar)), False, (0, 0, 0))
+        'Numero veicoli:  ' + str(len(listacar)), False, (0, 0, 0))
     textsurface2 = myfont.render(
         'Time:  ' + "%02d:%02d" % convert(s1*30), False, (0, 0, 0))
     # textsurface2 = myfont.render(
