@@ -58,7 +58,7 @@ timertrafficlight = pygame.USEREVENT + 2
 pygame.time.set_timer(timertrafficlight, 9000)
 spawntimer = pygame.USEREVENT + 3
 pygame.time.set_timer(spawntimer, 3000)
-pygame.time.set_timer(pygame.USEREVENT+4, 1)
+pygame.time.set_timer(pygame.USEREVENT + 4, 1)
 
 
 signal_counter = 0
@@ -66,8 +66,9 @@ signal_counter1 = 1
 s1 = 0
 # prima prova per regolare spawn macchine su ora
 newCar = 1
-while True:
-    newCar = trafficSet(s1*30)
+exit = False
+while not exit:
+    newCar = trafficSet(s1 * 30)
     disegna_oggetti(listacar, textsurface, textsurface2, listasemafori)
     for i, car in enumerate(listacar):
         car.move()
@@ -88,20 +89,22 @@ while True:
             listacar.remove(car)
     # s = round(pygame.time.get_ticks(),2)
 
-    textsurface = myfont.render(
-        'Numero veicoli:  ' + str(len(listacar)), False, (0, 0, 0))
-    textsurface2 = myfont.render(
-        'Time:  ' + "%02d:%02d" % convert(s1*30), False, (0, 0, 0))
+    textsurface = myfont.render('Numero veicoli:  ' + str(len(listacar)), False, (0, 0, 0))
+    textsurface2 = myfont.render('Time:  ' + "%02d:%02d" % convert(s1 * 30), False, (0, 0, 0))
     # textsurface2 = myfont.render(
     #     'start'+str(listacar[0].ingombro), False, (0, 0, 0))
 
     for event in pygame.event.get():
+
+        # Per gestire la chiusura dell'interfaccia  
+        if event.type == pygame.QUIT:
+           exit = True
         # Per ricevere coordinate sulla poszione del mouse
         # x, y = pygame.mouse.get_pos()
         # print("X : {} Y: {}".format(x, y))
         if event.type == spawntimer:
             inizializza(newCar)
-        if event.type == pygame.USEREVENT+4:
+        if event.type == pygame.USEREVENT + 4:
             s1 += 1
             if s1 == 2880:
                 s1 = 0
@@ -122,8 +125,9 @@ while True:
             SCHERMO = pygame.display.set_mode((event.w, event.h),
                                               pygame.RESIZABLE)
         # gestisco la chiusura della finestra
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            SystemExit
+        #if event.type == pygame.QUIT:
+        #    pygame.quit()
+        #    SystemExit
     aggiorna()
     pygame.display.flip()
+pygame.quit()
