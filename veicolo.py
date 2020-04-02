@@ -193,14 +193,16 @@ class Car():
         self.checklane()
 
     def rotatedx(self, angle):
+        self.angle -= angle
         self.image = pygame.transform.rotate(self.saved_image, self.angle)
         self.rect = self.image.get_rect(center=self.rect.center)
-        self.angle -= angle
+        
 
     def rotatesx(self, angle):
+        self.angle += angle
         self.image = pygame.transform.rotate(self.saved_image, self.angle)
         self.rect = self.image.get_rect(center=self.rect.center)
-        self.angle += angle
+        
 
     def creavisione(self):
 
@@ -247,9 +249,9 @@ class Car():
                 if self.y < self.arrivoy:
                     self.y += self.speedy
                     self.direzione = 'giù'
-                elif self.y in range(self.arrivoy - 2, self.arrivoy + 2) and self.angle != -95:
+                elif self.y in range(self.arrivoy - 2, self.arrivoy + 2) and self.angle != -90:
                     self.rotatedx(5)
-                elif self.angle == -95:
+                elif self.angle == -90:
                     if self.x > self.arrivox:
                         self.x -= self.speedx
                         self.direzione = 'sinistra'
@@ -259,9 +261,9 @@ class Car():
                 if self.y < self.arrivoy:
                     self.y += self.speedy
                     self.direzione = 'giù'
-                elif self.y in range(self.arrivoy - 2, self.arrivoy + 2) and self.angle != 95:
+                elif self.y in range(self.arrivoy - 2, self.arrivoy + 2) and self.angle != 90:
                     self.rotatesx(5)
-                elif self.angle == 95:
+                elif self.angle == 90:
                     if self.x < self.arrivox:
                         self.x += self.speedx
                 if self.lane == 'esterna':
@@ -270,9 +272,9 @@ class Car():
                 if self.y > self.arrivoy:
                     self.y -= self.speedy
                     self.direzione = 'su'
-                elif self.y in range(self.arrivoy - 2, self.arrivoy + 2) and self.angle != 95:
+                elif self.y in range(self.arrivoy - 2, self.arrivoy + 2) and self.angle != 90:
                     self.rotatesx(5)
-                elif self.angle == 95:
+                elif self.angle == 90:
                     if self.x > self.arrivox:
                         self.x -= self.speedx
                         self.direzione = 'sinistra'
@@ -282,9 +284,9 @@ class Car():
                 if self.y > self.arrivoy:
                     self.y -= self.speedy
                     self.direzione = 'su'
-                elif self.y in range(self.arrivoy - 2, self.arrivoy + 2) and self.angle != -95:
+                elif self.y in range(self.arrivoy - 2, self.arrivoy + 2) and self.angle != -90:
                     self.rotatedx(5)
-                elif self.angle == -95:
+                elif self.angle == -90:
                     if self.x < self.arrivox:
                         self.x += self.speedx
                         self.direzione = 'destra'
@@ -295,9 +297,9 @@ class Car():
                 if self.x < self.arrivox:
                     self.x += self.speedx
                     self.direzione = 'destra'
-                elif self.x in range(self.arrivox-2, self.arrivox + 2) and self.angle != 95:
+                elif self.x in range(self.arrivox-2, self.arrivox + 2) and self.angle != 90:
                     self.rotatesx(5)
-                elif self.angle == 95:
+                elif self.angle == 90:
                     if self.y > self.arrivoy:
                         self.y -= self.speedy
                         self.direzione = 'su'
@@ -307,9 +309,9 @@ class Car():
                 if self.x < self.arrivox:
                     self.x += self.speedx
                     self.direzione = 'destra'
-                elif self.x in range(self.arrivox-2, self.arrivox + 2) and self.angle != -95:
+                elif self.x in range(self.arrivox-2, self.arrivox + 2) and self.angle != -90:
                     self.rotatedx(5)
-                elif self.angle == -95:
+                elif self.angle == -90:
                     if self.y < self.arrivoy:
                         self.y += self.speedy
                         self.direzione = 'giù'
@@ -319,9 +321,9 @@ class Car():
                 if self.x > self.arrivox:
                     self.x -= self.speedx
                     self.direzione = 'sinistra'
-                elif self.x in range(self.arrivox-2, self.arrivox + 2) and self.angle != -95:
+                elif self.x in range(self.arrivox-2, self.arrivox + 2) and self.angle != -90:
                     self.rotatedx(5)
-                elif self.angle == -95:
+                elif self.angle == -90:
                     if self.y > self.arrivoy:
                         self.y -= self.speedy
                         self.direzione = 'su'
@@ -331,9 +333,9 @@ class Car():
                 if self.x > self.arrivox:
                     self.x -= self.speedx
                     self.direzione = 'sinistra'
-                elif self.x in range(self.arrivox-2, self.arrivox + 2) and self.angle != 95:
+                elif self.x in range(self.arrivox-2, self.arrivox + 2) and self.angle != 90:
                     self.rotatesx(5)
-                elif self.angle == 95:
+                elif self.angle == 90:
                     if self.y < self.arrivoy:
                         self.y += self.speedy
                         self.direzione = 'giù'
